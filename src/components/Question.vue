@@ -31,7 +31,7 @@ const props = defineProps({
 
 // desabling 
 
-const disabledIds = ['q5', 'q6', 'q7']
+const disabledIds = ['q6', 'q7']
 
 const isDisabled = ref(disabledIds.includes(props.id))
 

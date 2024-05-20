@@ -1,10 +1,8 @@
 <template>
-  <!-- <Button
-    @click="visible = true"
-    rounded
-    icon="pi pi-question"
-  /> -->
+
   <div class="wrapper">
+    <!-- <Apresentation /> -->
+
     <Question
       id="q1"
       label="Qual a previsão de vendas para o primeiro mês?"
@@ -28,10 +26,18 @@
       v-model="q4"
     />
 
-    <Question
+    <!-- <Question
       id="q5"
       label="Baseado no tipo de produto/serviço, qual a tabela do simples nacional a ser utilizada? (I a VI)"
       v-model="q5"
+    /> -->
+
+    <Dropdown
+      id="q5"
+      placeholder="Baseado no tipo de produto/serviço, qual a tabela do simples nacional a ser utilizada? (I a V)"
+      option-label="name"
+      v-model="q5"
+      :options="anexos"
     />
 
     <Question
@@ -52,12 +58,12 @@
       v-model="q8"
     />
 
-    <ResultTable :data="{
+    <DemonstrationTable :data="{
       q1,
       q2,
       q3,
       q4,
-      q5,
+      q5: q5.code,
       q6,
       q7,
       q8
@@ -102,9 +108,11 @@
 
 <script setup>
 import Question from './components/Question.vue'
-import ResultTable from './components/ResultTable.vue'
+import DemonstrationTable from './components/DemonstrationTable.vue'
+import Apresentation from './components/Apresentation.vue'
+import Dropdown from 'primevue/dropdown'
 import Dialog from 'primevue/dialog'
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 
 const visible = ref(false)
 
@@ -116,6 +124,14 @@ const q5 = ref('')
 const q6 = ref('')
 const q7 = ref('')
 const q8 = ref('')
+
+const anexos = ref([
+  { name: 'Anexo I', code: 'I' },
+  { name: 'Anexo II', code: 'II' },
+  { name: 'Anexo III', code: 'III' },
+  { name: 'Anexo IV', code: 'IV' },
+  { name: 'Anexo V', code: 'V' },
+])
 
 </script>
 
