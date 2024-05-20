@@ -1,9 +1,15 @@
 <template>
   <FloatLabel>
-    <InputText
+    <InputNumber
       :id="id"
       v-model="model"
       :disabled="isDisabled"
+      :mode="mode"
+      currency="BRL"
+      :prefix="prefix"
+      :suffix="suffix"
+      :min="min"
+      :max="max"
     />
     <label :for="id">
       {{ label }}
@@ -13,7 +19,7 @@
 
 <script setup>
 import { defineProps, ref } from 'vue'
-import InputText from 'primevue/inputtext'
+import InputNumber from 'primevue/inputnumber'
 import FloatLabel from 'primevue/floatlabel'
 
 const model = defineModel()
@@ -26,10 +32,28 @@ const props = defineProps({
   label: {
     type: String,
     required: true
+  },
+  mode: {
+    type: String,
+    default: 'decimal'
+  },
+  prefix: {
+    type: String,
+    default: ''
+  },
+  suffix: {
+    type: String,
+    default: ''
+  },
+  min: {
+    type: Number,
+    default: 0
+  },
+  max: {
+    type: Number,
   }
-})
 
-// desabling 
+})
 
 const disabledIds = ['q6', 'q7']
 
@@ -38,7 +62,7 @@ const isDisabled = ref(disabledIds.includes(props.id))
 </script>
 
 <style scoped>
-.p-inputtext {
+.p-inputnumber {
   width: 80vw;
 }
 </style>

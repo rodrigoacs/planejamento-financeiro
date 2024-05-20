@@ -1,38 +1,36 @@
 <template>
 
   <div class="wrapper">
-    <!-- <Apresentation /> -->
+    <Apresentation />
 
     <Question
       id="q1"
       label="Qual a previsão de vendas para o primeiro mês?"
       v-model="q1"
+      min="1"
     />
     <Question
       id="q2"
       label="Qual o percentual de crescimento mensal na quantidade vendida?"
       v-model="q2"
+      suffix="%"
     />
 
     <Question
       id="q3"
       label="Qual o nível de estoque de segurança desejado (percentual em relação à previsão de vendas do mês)?"
       v-model="q3"
+      suffix="%"
     />
 
     <Question
       id="q4"
       label="Qual o preço de venda do produto?"
       v-model="q4"
+      mode="currency"
     />
 
-    <!-- <Question
-      id="q5"
-      label="Baseado no tipo de produto/serviço, qual a tabela do simples nacional a ser utilizada? (I a VI)"
-      v-model="q5"
-    /> -->
-
-    <FloatLabel>
+    <FloatLabel class="wrapper">
       <Dropdown
         id="q5"
         placeholder="Baseado no tipo de produto/serviço, qual a tabela do simples nacional a ser utilizada? (I a V)"
@@ -122,14 +120,14 @@ import { ref } from 'vue'
 
 const visible = ref(false)
 
-const q1 = ref('')
-const q2 = ref('')
-const q3 = ref('')
-const q4 = ref('')
+const q1 = ref()
+const q2 = ref()
+const q3 = ref()
+const q4 = ref()
 const q5 = ref('')
-const q6 = ref('')
-const q7 = ref('')
-const q8 = ref('')
+const q6 = ref()
+const q7 = ref()
+const q8 = ref()
 
 const anexos = ref([
   { name: 'Anexo I', code: 'I' },

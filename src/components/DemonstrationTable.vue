@@ -5,55 +5,18 @@
     </h3>
     <DataTable
       tableStyle="min-width: 50rem"
-      :value="infos"
+      :value="transformedData"
     >
-      <Column field="month" />
-
       <Column
-        field="salesQtde"
-        header="Previsão da quantidade vendida (em unidades)"
+        field="header"
+        header="Categoria"
       />
-
       <Column
-        field="stock"
-        header="Estoque final desejado* (em unidades)"
+        v-for="(month, index) in months"
+        :key="index"
+        :field="`month${index + 1}`"
+        :header="month"
       />
-
-      <Column
-        field="initialStock"
-        header="Estoque inicial (em unidades)"
-      />
-
-      <Column
-        field="production"
-        header="Produção (em unidades)"
-      />
-
-      <Column
-        field="unitPrice"
-        header="Preço unitário"
-      />
-
-      <Column
-        field="revenue"
-        header="Receita de Produto ou Serviço 1 (em R$)"
-      />
-
-      <Column
-        field="taxesAliquot"
-        header="Alíquota do Simples Nacional"
-      />
-
-      <Column
-        field="calculatedTaxes"
-        header="Valor dos tributos calculados no mês"
-      />
-
-      <Column
-        field="payedTaxes"
-        header="Valor dos tributos pagos no mês"
-      />
-
     </DataTable>
   </div>
 </template>
@@ -70,7 +33,13 @@ const props = defineProps({
   }
 })
 
-const infos = ref()
+const infos = ref([])
+const transformedData = ref([])
+const months = ref([])
+
+const formatCurrency = (value) => {
+  return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+}
 
 watch(() => props.data, (newData) => {
   const data = []
@@ -140,7 +109,23 @@ watch(() => props.data, (newData) => {
       payedTaxes
     })
   }
+
   infos.value = data
+
+  const transformed = [
+    { header: 'Previsão da quantidade vendida (em unidades)', ...data.reduce((acc, item, index) => ({ ...acc, [`month${index + 1}`]: item.salesQtde }), {}) },
+    { header: 'Estoque final desejado* (em unidades)', ...data.reduce((acc, item, index) => ({ ...acc, [`month${index + 1}`]: item.stock }), {}) },
+    { header: 'Estoque inicial (em unidades)', ...data.reduce((acc, item, index) => ({ ...acc, [`month${index + 1}`]: item.initialStock }), {}) },
+    { header: 'Produção (em unidades)', ...data.reduce((acc, item, index) => ({ ...acc, [`month${index + 1}`]: item.production }), {}) },
+    { header: 'Preço unitário', ...data.reduce((acc, item, index) => ({ ...acc, [`month${index + 1}`]: formatCurrency(item.unitPrice) }), {}) },
+    { header: 'Receita de Produto ou Serviço 1 (em R$)', ...data.reduce((acc, item, index) => ({ ...acc, [`month${index + 1}`]: formatCurrency(item.revenue) }), {}) },
+    { header: 'Alíquota do Simples Nacional', ...data.reduce((acc, item, index) => ({ ...acc, [`month${index + 1}`]: `${item.taxesAliquot}%` }), {}) },
+    { header: 'Valor dos tributos calculados no mês', ...data.reduce((acc, item, index) => ({ ...acc, [`month${index + 1}`]: formatCurrency(item.calculatedTaxes) }), {}) },
+    { header: 'Valor dos tributos pagos no mês', ...data.reduce((acc, item, index) => ({ ...acc, [`month${index + 1}`]: formatCurrency(item.payedTaxes) }), {}) }
+  ]
+
+  transformedData.value = transformed
+  months.value = data.map(item => item.month)
 }, { immediate: true })
 </script>
 
