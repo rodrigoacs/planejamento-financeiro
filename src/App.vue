@@ -13,14 +13,14 @@
       id="q2"
       label="Qual o percentual de crescimento mensal na quantidade vendida?"
       v-model="q2"
-      suffix="%"
+      suffix=" %"
     />
 
     <Question
       id="q3"
       label="Qual o nível de estoque de segurança desejado (percentual em relação à previsão de vendas do mês)?"
       v-model="q3"
-      suffix="%"
+      suffix=" %"
     />
 
     <Question
