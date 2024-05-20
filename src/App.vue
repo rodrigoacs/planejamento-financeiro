@@ -32,13 +32,18 @@
       v-model="q5"
     /> -->
 
-    <Dropdown
-      id="q5"
-      placeholder="Baseado no tipo de produto/serviço, qual a tabela do simples nacional a ser utilizada? (I a V)"
-      option-label="name"
-      v-model="q5"
-      :options="anexos"
-    />
+    <FloatLabel>
+      <Dropdown
+        id="q5"
+        placeholder="Baseado no tipo de produto/serviço, qual a tabela do simples nacional a ser utilizada? (I a V)"
+        option-label="name"
+        v-model="q5"
+        :options="anexos"
+      />
+      <label for="q5">
+        Baseado no tipo de produto/serviço, qual a tabela do simples nacional a ser utilizada? (I a V)
+      </label>
+    </FloatLabel>
 
     <Question
       id="q6"
@@ -111,6 +116,7 @@ import Question from './components/Question.vue'
 import DemonstrationTable from './components/DemonstrationTable.vue'
 import Apresentation from './components/Apresentation.vue'
 import Dropdown from 'primevue/dropdown'
+import FloatLabel from 'primevue/floatlabel'
 import Dialog from 'primevue/dialog'
 import { ref } from 'vue'
 
