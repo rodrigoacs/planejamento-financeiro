@@ -3,6 +3,7 @@
     <InputText
       :id="id"
       v-model="model"
+      :disabled="isDisabled"
     />
     <label :for="id">
       {{ label }}
@@ -17,7 +18,6 @@ import FloatLabel from 'primevue/floatlabel'
 
 const model = defineModel()
 
-
 const props = defineProps({
   id: {
     type: String,
@@ -28,6 +28,13 @@ const props = defineProps({
     required: true
   }
 })
+
+// desabling 
+
+const disabledIds = ['q5', 'q6', 'q7']
+
+const isDisabled = ref(disabledIds.includes(props.id))
+
 </script>
 
 <style scoped>
