@@ -49,9 +49,31 @@ img {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-left: 2rem;
-  margin-right: 2rem;
+  margin-left: 20px;
+  margin-right: 20px;
   max-width: 80vw;
-  gap: 2rem;
+  gap: 1rem;
+}
+
+@media screen and (max-width: 1280px){
+  img {
+    max-width: 30vw;
+  }
+
+  .p-divider {
+    display: none;
+  }
+
+  .a-wrapper {
+    flex-direction: column;
+  }
+
+  p {
+    max-width: 80vw;
+  }
+
+  img {
+    max-width: 80vw;
+  }
 }
 </style>

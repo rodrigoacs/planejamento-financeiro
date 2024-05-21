@@ -55,10 +55,6 @@ const props = defineProps({
 
 })
 
-const disabledIds = ['q6', 'q7']
-
-const isDisabled = ref(disabledIds.includes(props.id))
-
 </script>
 
 <style scoped>

@@ -9,18 +9,19 @@
       v-model="q1"
       min="1"
     />
+
     <Question
       id="q2"
       label="Qual o percentual de crescimento mensal na quantidade vendida?"
       v-model="q2"
-      suffix=" %"
+      suffix="%"
     />
 
     <Question
       id="q3"
       label="Qual o nível de estoque de segurança desejado (percentual em relação à previsão de vendas do mês)?"
       v-model="q3"
-      suffix=" %"
+      suffix="%"
     />
 
     <Question
@@ -47,12 +48,17 @@
       id="q6"
       label="Qual o percentual da vendas realizado à vista?"
       v-model="q6"
+      suffix="%"
+      min="0"
+      max="100"
     />
 
     <Question
       id="q7"
       label="As vendas não realizadas à vista são, em geral, divididas em quantas vezes?"
       v-model="q7"
+      min="1"
+      max="12"
     />
 
     <Question
@@ -61,7 +67,18 @@
       v-model="q8"
     />
 
-    <DemonstrationTable :data="{
+    <SalesTable :data="{
+      q1,
+      q2,
+      q3,
+      q4,
+      q5: q5.code,
+      q6,
+      q7,
+      q8
+    }" />
+
+    <ReceiptsTable :data="{
       q1,
       q2,
       q3,
@@ -111,11 +128,14 @@
 
 <script setup>
 import Question from './components/Question.vue'
-import DemonstrationTable from './components/DemonstrationTable.vue'
+import SalesTable from './components/SalesTable.vue'
 import Apresentation from './components/Apresentation.vue'
+import ReceiptsTable from './components/ReceiptsTable.vue'
+
 import Dropdown from 'primevue/dropdown'
 import FloatLabel from 'primevue/floatlabel'
 import Dialog from 'primevue/dialog'
+
 import { ref } from 'vue'
 
 const visible = ref(false)
@@ -145,4 +165,10 @@ const anexos = ref([
   flex-direction: column;
   gap: 2rem;
 }
+
+.p-dropdown {
+  width: 80vw;
+}
+
+@media screen and (max-width: 768px) {}
 </style>

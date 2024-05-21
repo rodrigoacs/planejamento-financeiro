@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div>
     <h3>
       Demonstração de vendas, produção e receita
     </h3>
