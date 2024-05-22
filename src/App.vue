@@ -3,6 +3,8 @@
   <div class="wrapper">
     <Apresentation />
 
+    <h2>Questionário</h2>
+
     <Question
       id="q1"
       label="Qual a previsão de vendas para o primeiro mês?"
@@ -67,61 +69,21 @@
       v-model="q8"
     />
 
-    <SalesTable :data="{
-      q1,
-      q2,
-      q3,
-      q4,
-      q5: q5.code,
-      q6,
-      q7,
-      q8
-    }" />
+    <Button
+      label="gerar projeções"
+      @click="visible = true"
+    />
 
-    <ReceiptsTable :data="{
-      q1,
-      q2,
-      q3,
-      q4,
-      q5: q5.code,
-      q6,
-      q7,
-      q8
-    }" />
+    <SalesTable
+      :visible="visible"
+      :data="{ q1, q2, q3, q4, q5: q5.code, q6, q7, q8 }"
+    />
 
-    <Dialog
-      v-model:visible="visible"
-      modal
-      header="Simples Nacional 2019"
-      :style="{ width: '25rem' }"
-    >
-      <p>
-        Anexo I - empresas de comércio (lojas em geral)
-      </p>
-      <p>
-        Anexo II - fábricas/indústrias e empresas industriais
-      </p>
-      <p>
-        Anexo III - empresas prestadoras de serviços
-      </p>
-      <p>
-        Anexo IV - empresas que fornecem serviço de limpeza, vigilância, obras, construção de imóveis, serviços
-        advocatícios
-      </p>
-      <p>
-        Anexo V - empresas que fornecem serviço de auditoria, jornalismo, tecnologia, publicidade, engenharia, entre
-        outros
-      </p>
-      <p>
-        mais informações
-        <a
-          href="https://ideal.cnt.br/timeline-post/simples-nacional-tabelas-2019/"
-          target="_blank"
-        >
-          clique aqui
-        </a>
-      </p>
-    </Dialog>
+    <ReceiptsTable
+      :visible="visible"
+      :data="{ q1, q2, q3, q4, q5: q5.code, q6, q7, q8 }"
+    />
+
   </div>
 
 </template>
@@ -134,7 +96,7 @@ import ReceiptsTable from './components/ReceiptsTable.vue'
 
 import Dropdown from 'primevue/dropdown'
 import FloatLabel from 'primevue/floatlabel'
-import Dialog from 'primevue/dialog'
+import Button from 'primevue/button'
 
 import { ref } from 'vue'
 

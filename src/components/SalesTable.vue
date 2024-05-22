@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <h3>
+  <div v-if="props.visible">
+    <h2>
       Demonstração de vendas, produção e receita
-    </h3>
+    </h2>
     <DataTable
       tableStyle="min-width: 50rem"
       :value="transformedData"
@@ -30,6 +30,10 @@ const props = defineProps({
   data: {
     type: Object,
     required: true
+  },
+  visible: {
+    type: Boolean,
+    required: true
   }
 })
 
@@ -52,49 +56,15 @@ watch(() => props.data, (newData) => {
     const unitPrice = newData.q4
     const revenue = salesQtde * unitPrice
     const taxesAliquot = {
-      I: {
-        180000: 4,
-        360000: 7.3,
-        720000: 9.5,
-        1800000: 10.7,
-        3600000: 14.3,
-        4800000: 19
-      },
-      II: {
-        180000: 4.5,
-        360000: 7.8,
-        720000: 10,
-        1800000: 11.2,
-        3600000: 14.7,
-        4800000: 30.0
-      },
-      III: {
-        180000: 6,
-        360000: 11.2,
-        720000: 13.5,
-        1800000: 16,
-        3600000: 21,
-        4800000: 33
-      },
-      IV: {
-        180000: 4.5,
-        360000: 9.0,
-        720000: 10.2,
-        1800000: 14,
-        3600000: 22.0,
-        4800000: 33.0
-      },
-      V: {
-        180000: 15.5,
-        360000: 18.0,
-        720000: 19.5,
-        1800000: 20.5,
-        3600000: 23.0,
-        4800000: 30.5
-      }
+      I: { 180000: 4, 360000: 7.3, 720000: 9.5, 1800000: 10.7, 3600000: 14.3, 4800000: 19 },
+      II: { 180000: 4.5, 360000: 7.8, 720000: 10, 1800000: 11.2, 3600000: 14.7, 4800000: 30.0 },
+      III: { 180000: 6, 360000: 11.2, 720000: 13.5, 1800000: 16, 3600000: 21, 4800000: 33 },
+      IV: { 180000: 4.5, 360000: 9.0, 720000: 10.2, 1800000: 14, 3600000: 22.0, 4800000: 33.0 },
+      V: { 180000: 15.5, 360000: 18.0, 720000: 19.5, 1800000: 20.5, 3600000: 23.0, 4800000: 30.5 }
     }
     const calculatedTaxes = revenue * taxesAliquot[newData.q5][Object.keys(taxesAliquot[newData.q5]).find(key => revenue <= key)] / 100
     const payedTaxes = i === 1 ? 0 : data[i - 2].calculatedTaxes
+
 
     data.push({
       month,
@@ -110,6 +80,7 @@ watch(() => props.data, (newData) => {
     })
   }
 
+  window.localStorage.setItem('data', JSON.stringify(data))
   infos.value = data
 
   const transformed = [
